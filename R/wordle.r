@@ -1,6 +1,8 @@
 #!/usr/bin/env Rscript
 # Functions of the game
 
+
+#' @export
 wordle <- function() {
   cat("\n")
   cat("  _/          _/    _/_/    _/_/_/    _/_/_/    _/        _/_/_/_/
@@ -40,6 +42,7 @@ newGame <- function() {
   chosen <<- sample(subset(dict[, 1], dict[, 2] == 1), 1)
   attempts <<- data.frame()
 }
+
 
 cleanSetup <- function() {
   correct <<- rep(0, 5)
@@ -99,7 +102,7 @@ Game <- function() {
       saveStats()
     }
   }
- 
+
   wordle()
 }
 
@@ -136,3 +139,4 @@ saveStats <- function() {
     sep = ","
   )
 }
+
