@@ -37,8 +37,7 @@ _/    _/    _/  _/    _/  _/_/_/    _/    _/  _/        _/_/_/
 newGame <- function() {
   Sys.setenv(LANG = "en")
   rm(list = ls())
-  dict <- load("data/sysdata.rda")
-  chosen <<- sample(dict, 1)
+  chosen <<- sample(words[, 1], 1)
   attempts <<- data.frame()
 }
 
