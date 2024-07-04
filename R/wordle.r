@@ -27,7 +27,7 @@ _/    _/    _/  _/    _/  _/_/_/    _/    _/  _/        _/_/_/
   } else if (option == ".info") {
     info()
   } else if (option == ".exit") {
-    q()
+    stop("Ignore Error Message: Exiting... ")
   } else {
     stop("Error! '", option, "' is not recognized")
     wordle()
