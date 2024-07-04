@@ -34,6 +34,7 @@ _/    _/    _/  _/    _/  _/_/_/    _/    _/  _/        _/_/_/
   }
 }
 
+#' @export
 newGame <- function() {
   Sys.setenv(LANG = "en")
   rm(list = ls())
@@ -41,7 +42,7 @@ newGame <- function() {
   attempts <<- data.frame()
 }
 
-
+#' @export
 cleanSetup <- function() {
   correct <<- rep(0, 5)
   present <<- rep(0, 5)
@@ -49,6 +50,7 @@ cleanSetup <- function() {
   success <<- FALSE
 }
 
+#' @export
 check <- function() {
   solution <- strsplit(chosen, "")
   attempt <- strsplit(userInput, "")
@@ -69,6 +71,7 @@ check <- function() {
   }
 }
 
+#' @export
 Game <- function() {
   for (trial in 1:6) {
     userInput <<- readline(prompt = "Enter a word: ")
@@ -102,12 +105,14 @@ Game <- function() {
   wordle()
 }
 
+#' @export
 play <- function() {
   newGame()
   cleanSetup()
   Game()
 }
 
+#' @export
 info <- function() {
   text <- readr::read_file("text/info.txt")
   cat(text, "\n")
