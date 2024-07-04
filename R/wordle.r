@@ -38,7 +38,7 @@ _/    _/    _/  _/    _/  _/_/_/    _/    _/  _/        _/_/_/
 newGame <- function() {
   Sys.setenv(LANG = "en")
   rm(list = ls())
-  chosen <<- sample(words[, 1], 1)
+  chosen <<- sample(Wordle::words[,1], 1)
   attempts <<- data.frame()
 }
 
