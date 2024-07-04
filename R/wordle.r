@@ -38,7 +38,7 @@ newGame <- function() {
   Sys.setenv(LANG = "en")
   rm(list = ls())
 
-  dict <- read.csv("data/words.csv")
+  dict <- load("data/words.csv")
   chosen <<- sample(subset(dict[, 1], dict[, 2] == 1), 1)
   attempts <<- data.frame()
 }
@@ -83,7 +83,6 @@ Game <- function() {
       attempts[trial, 1:5] <<- attempt[[1]]
       cat("Congrats! You found the secret word '", chosen, "'\n")
       success <<- TRUE
-       saveStats()
       break
     } else {
       check()
@@ -99,7 +98,6 @@ Game <- function() {
       print(attempts)
       cat("Better luck next time! \n")
       cat("The solution was", chosen, "\n")
-      saveStats()
     }
   }
 
@@ -121,22 +119,4 @@ info <- function() {
   wordle()
 }
 
-saveStats <- function() {
-  if (success) {
-    nsuccess <- nrow(attempts)
-  } else {
-    nsuccess <- NA
-  }
-  date <- Sys.time()
-  saved <- data.frame(date = date, chosen = chosen, nsuccess = nsuccess)
-  print(saved)
-
-  write.table(saved,
-    file = "data/history.csv",
-    append = TRUE,
-    col.names = F,
-    row.names = F,
-    sep = ","
-  )
-}
 
