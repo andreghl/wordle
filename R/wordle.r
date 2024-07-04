@@ -38,8 +38,8 @@ newGame <- function() {
   Sys.setenv(LANG = "en")
   rm(list = ls())
 
-  dict <- load("data/words.csv")
-  chosen <<- sample(subset(dict[, 1], dict[, 2] == 1), 1)
+  dict <- load("R/sysdata.rda")
+  chosen <<- sample(dict, 1)
   attempts <<- data.frame()
 }
 
