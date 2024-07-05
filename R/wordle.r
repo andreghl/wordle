@@ -38,7 +38,8 @@ _/    _/    _/  _/    _/  _/_/_/    _/    _/  _/        _/_/_/
 newGame <- function() {
   Sys.setenv(LANG = "en")
   rm(list = ls())
-  chosen <<- sample(Wordle::words[,1], 1)
+  words <- load("data/sysdata.rda")
+  chosen <<- sample(words[,1], 1)
   attempts <<- data.frame()
 }
 
@@ -112,9 +113,10 @@ play <- function() {
   Game()
 }
 
+#' @import readr
 #' @export
 info <- function() {
-  text <- readr::read_file("text/info.txt")
+  text <- readr::read_file("data/info.txt")
   cat(text, "\n")
 
   # Go back to home
