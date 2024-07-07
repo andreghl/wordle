@@ -3,125 +3,82 @@
 
 
 #' @export
-wordle <- function() {
-  cat("\n")
-  cat("  _/          _/    _/_/    _/_/_/    _/_/_/    _/        _/_/_/_/
- _/          _/  _/    _/  _/    _/  _/    _/  _/        _/
-_/    _/    _/  _/    _/  _/_/_/    _/    _/  _/        _/_/_/
- _/  _/  _/    _/    _/  _/    _/  _/    _/  _/        _/
-  _/  _/        _/_/    _/    _/  _/_/_/    _/_/_/_/  _/_/_/_/   \n")
-  cat("\n")
-  cat("\n")
-  cat("Enjoy the Wordle game in the Command line!\n")
-  cat("Options: \n")
-  cat(".play          To play the game \n")
-  cat(".info          To see the rules of the game \n")
-  cat(".exit          To get exit the game \n")
-  cat("\n")
+wordle = function(){
+  load(file = "R/sysdata.rda")
+  secret <- sample(words[, 1], 1)
+  canvas <- data.frame()
 
-  readline(prompt = "Press [enter] to continue")
-  option <- readline(prompt = "> ")
+  # Check Input
+  isCorrect = function(userInput, secret){
 
-  if (option == ".play") {
-    play()
-  } else if (option == ".info") {
-    info()
-  } else if (option == ".exit") {
-    stop("Ignore Error Message: Exiting... ")
-  } else {
-    stop("Error! '", option, "' is not recognized")
-    wordle()
-  }
-}
+    userInput <- strsplit(userInput, "")[[1]]
+    secret <- strsplit(secret, "")[[1]]
 
-#' @export
-newGame <- function() {
-  Sys.setenv(LANG = "en")
-  rm(list = ls())
-  words <- load("data/sysdata.rda")
-  chosen <<- sample(words[,1], 1)
-  attempts <<- data.frame()
-}
+    correct <- rep(0, 5)
 
-#' @export
-cleanSetup <- function() {
-  correct <<- rep(0, 5)
-  present <<- rep(0, 5)
-  isFound <<- rep(1, 5)
-  success <<- FALSE
-}
-
-#' @export
-check <- function() {
-  solution <- strsplit(chosen, "")
-  attempt <- strsplit(userInput, "")
-
-  for (i in 1:5) {
-    if (isTRUE(solution[[1]][i] == attempt[[1]][i])) {
-      correct[i] <<- 1
-      isFound[i] <<- attempt[[1]][i]
-    } else {
-      correct[i] <<- 0
+    for(i in 1:5){
+      if(secret[i] == userInput[i]){
+        correct[i] <- 1
+      }
     }
 
-    if (is.element(attempt[[1]][i], solution[[1]])) {
-      present[i] <<- 1
-    } else {
-      present[i] <<- 0
-    }
+    return(correct)
   }
-}
 
-#' @export
-Game <- function() {
-  for (trial in 1:6) {
-    userInput <<- readline(prompt = "Enter a word: ")
+  isPresent = function(userInput, secret){
 
-    if (nchar(userInput) != 5) {
+    userInput <- strsplit(userInput, "")[[1]]
+    secret <- strsplit(secret, "")[[1]]
+
+    present <- rep(0, 5)
+
+    for(i in 1:5){
+      if(is.element(userInput[i], secret)){
+        present[i] <- 1
+      }
+    }
+    return(present)
+  }
+
+  for(i in 1:6){
+
+    userInput <- readline(prompt = "Enter a word: ")
+
+    if(userInput == ""){
+
+      userInput <- "error"
+    }
+
+    if(nchar(userInput) != 5){
+
       warning("The word should only contain five letters")
-      Game()
-    } else if (identical(userInput, chosen)) {
-      attempt <- strsplit(userInput, "")
-      attempts[trial, 1:5] <<- attempt[[1]]
-      cat("Congrats! You found the secret word '", chosen, "'\n")
-      success <<- TRUE
+      userInput <- readline(prompt = "Enter a word: ")
+
+    } else if(identical(userInput, secret)){
+
+      canvas[i, 1:5] <- strsplit(userInput, "")[[1]]
+      colnames(canvas) <- c("1", "2", "3", "4", "5")
+      cat("Congrats!!! You have found the secret word \n")
       break
     } else {
-      check()
-      attempt <- strsplit(userInput, "")
-      attempts[trial, 1:5] <<- attempt[[1]]
+
+      correct <- isCorrect(userInput, secret)
+      present <- isPresent(userInput, secret)
+      canvas[i, 1:5] <- strsplit(userInput, "")[[1]]
+      colnames(canvas) <- c("1", "2", "3", "4", "5")
     }
 
-    print(attempts[1:trial, ])
-    cat("Correct: ", correct, "\n")
-    cat("Present: ", present, "\n")
+      print(canvas[1:i, ])
+      cat("Correct: ", correct, "\n")
+      cat("Present: ", present, "\n")
 
-    if (trial == 6) {
-      print(attempts)
-      cat("Better luck next time! \n")
-      cat("The solution was", chosen, "\n")
-    }
+      if(i == 6){
+        print(canvas)
+        cat("Better luck next time! \n")
+        cat("The solution was", secret, "\n")
+      }
+
   }
-
-  wordle()
 }
 
-#' @export
-play <- function() {
-  newGame()
-  cleanSetup()
-  Game()
-}
-
-#' @import readr
-#' @export
-info <- function() {
-  text <- readr::read_file("data/info.txt")
-  cat(text, "\n")
-
-  # Go back to home
-  readline(prompt = "Press [enter] to continue")
-  wordle()
-}
-
-
+wordle()
