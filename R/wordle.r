@@ -44,10 +44,10 @@ wordle = function(){
 
     userInput <- readline(prompt = "Enter a word: ")
 
-    if(userInput == ""){
-
-      userInput <- "error"
-    }
+#    if(userInput == ""){
+#
+#      userInput <- "error"
+#    }
 
     if(nchar(userInput) != 5){
 
@@ -80,5 +80,3 @@ wordle = function(){
 
   }
 }
-
-wordle()
