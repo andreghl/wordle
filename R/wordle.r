@@ -4,7 +4,7 @@
 
 #' @export
 wordle = function(){
-  load(file = "R/sysdata.rda")
+  load(file = "../R/sysdata.rda")
   secret <- sample(words[, 1], 1)
   canvas <- data.frame()
 
@@ -80,3 +80,4 @@ wordle = function(){
 
   }
 }
+

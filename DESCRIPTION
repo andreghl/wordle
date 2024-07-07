@@ -13,3 +13,4 @@ Imports:
     readr
 Depends: 
     R (>= 2.10)
+LazyData: true
