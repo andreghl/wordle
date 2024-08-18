@@ -11,6 +11,10 @@ install_github("andregl/wordle")
 
 Once the package is loaded, the game can be played by running ```wordle()```. In the terminal, the game looks as follows:
 
+<div style = "width: 70%; text-align: center; margin: auto;">
+
 ![Example](img/game.png)
+
+</div>
 
 For each attempt, the output is kept at a minimum, only presenting the necessary information. Also, the program does not check whether the attempted word is within the list of available words. This task is left to the player.
