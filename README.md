@@ -14,12 +14,3 @@ The game can be played once the package is loaded by running ```wordle()```. In 
 ![Example](img/game.png)
 
 For each attempt, the output is kept at a minimum, only presenting the necessary information. Also, the program does not check whether the attempted word is within the list of available words. This task is left to the player.
-
-<style>
-
-  img {
-    width: 70%; 
-    text-align: center; 
-    margin: auto;
-  }
-</style>
