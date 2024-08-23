@@ -7,6 +7,8 @@ I created this project to learn how to create a package in R. I do not aim to pr
 library(devtools)
 
 install_github("andregl/wordle")
+
+library(wordle)
 ```
 
 The game can be played once the package is loaded by running ```wordle()```. In the terminal, the game looks as follows:
