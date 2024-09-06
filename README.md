@@ -6,7 +6,7 @@ I created this project to learn how to create a package in R. I do not aim to pr
 # install.packages("devtools") 
 library(devtools)
 
-install_github("andregl/wordle")
+install_github("andreghl/wordle")
 
 library(wordle)
 ```
